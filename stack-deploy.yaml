@@ -1,0 +1,4 @@
+template-file-path: stack-deploy-template.yaml
+parameters:
+  BootstrapVersion: /cdk-bootstrap/hnb659fds/version
+tags: {}
