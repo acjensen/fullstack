@@ -1,0 +1,14 @@
+{
+  "availability-zones:account=525122308447:region=us-east-1": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ],
+  "hosted-zone:account=525122308447:domainName=acjensen-desktop.com:region=us-east-1": {
+    "Id": "/hostedzone/Z04120322C14IQFE0SPTY",
+    "Name": "acjensen-desktop.com."
+  }
+}
