@@ -1,8 +1,10 @@
 "use server";
-import DynamoDB, {
-  GetItemInput,
-  UpdateItemInput,
-} from "aws-sdk/clients/dynamodb";
+import {
+  DynamoDBClient,
+  GetItemCommand,
+  UpdateItemCommand,
+} from "@aws-sdk/client-dynamodb";
+// import STS, { AssumeRoleRequest } from "aws-sdk/clients/sts";
 import { tableName } from "../cdk/common";
 
 export async function getData() {
@@ -15,51 +17,45 @@ export async function getData() {
 
 export const put = async () => {
   console.log("put ON THE SERVER");
-  const client = new DynamoDB({ region: "us-east-1" });
+  const client = new DynamoDBClient({ region: process.env.REGION });
 
-  const params: UpdateItemInput = {
-    TableName: "fullstack-stack-fullstacktableE10A93B1-1M75IKHDBDX6U",
-    Key: { pk: { S: "test" } },
-  };
-
-  client.updateItem(params, (error, data) => {
-    if (error) console.log(error, error.stack);
-    else console.log(data);
-  });
+  client
+    .send(
+      new UpdateItemCommand({
+        TableName: "fullstack",
+        Key: { pk: { S: "test" } },
+      })
+    )
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 export const get = async (): Promise<string> => {
   console.log("get ON THE SERVER");
-  const client = new DynamoDB({ region: "us-east-1" });
-
-  const params: GetItemInput = {
-    TableName: tableName,
-    Key: { pk: { S: "test" } },
-    // ExpressionAttributeNames: { '#N': 'name', '#E': 'email' },
-    // ExpressionAttributeValues: { ':n': { S: 'newName' } },
-    // UpdateExpression: 'SET #N = :n',
-    // ConditionExpression: 'attribute_exists(#E)',
-    // ReturnValues: 'ALL_NEW',
-  };
+  const client = new DynamoDBClient({ region: process.env.REGION });
 
   let result: string = "sdf";
   const callback = (error: any, data: any) => {};
-  // const request: Request<DynamoDB.Types.GetItemOutput, AWSError> =
-  return client
-    .getItem(params, callback)
-    .promise()
-    .then((data) => {
-      if (data.$response.error) {
-        console.log(data.$response.error, data.$response.error.stack);
-        result = "ERROR";
-      } else {
-        console.log(data.Item);
-        console.log(data.Item!.pk!.S!);
-        result = data.Item!.pk!.S!;
-      }
-      return result;
+  await client
+    .send(
+      new GetItemCommand({
+        TableName: tableName,
+        Key: { pk: { S: "test" } },
+      })
+    )
+    .then((response) => {
+      console.log(response.Item);
+      console.log(response.Item!.pk!.S!);
+      result = response.Item!.pk!.S!;
+    })
+    .catch((error) => {
+      console.log(error, error.stack);
+      result = "ERROR";
     });
 
-  // const result request.send((error) => {console.log(error)});
-  // console.log(result);
+  return result;
 };

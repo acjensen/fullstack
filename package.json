@@ -14,8 +14,10 @@
     "cdk:watch": "tsc -w",
     "cdk:test": "jest",
     "cdk": "cdk",
-    "cypress": "npx cypress open --e2e --browser=chrome",
-    "all": "next dev & (./wait-for-server.sh && npx cypress open --e2e --browser=chrome) & wait"
+    "test:dev": "next dev & (./wait-for-server.sh && npx cypress run --e2e --browser=chrome) & wait",
+    "test:dev:open": "next dev & (./wait-for-server.sh && npx cypress open --e2e --browser=chrome) & wait",
+    "test:prod": "npx cypress run --e2e --browser=chrome --config baseUrl=https://acjensen-desktop.com",
+    "test:prod:open": "npx cypress open --e2e --browser=chrome --config baseUrl=https://acjensen-desktop.com"
   },
   "author": "",
   "license": "ISC",
@@ -32,8 +34,8 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.538.0",
     "aws-cdk-lib": "2.133.0",
-    "aws-sdk": "^2.1580.0",
     "constructs": "^10.0.0",
     "next": "^14.1.3",
     "react": "^18.2.0",

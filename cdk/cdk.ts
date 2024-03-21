@@ -25,6 +25,7 @@ const stack = new cdk.Stack(app, `${appName}-stack`, {
 const table = new dynamodb.TableV2(stack, `${appName}-table`, {
   tableName: tableName,
   partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
+  removalPolicy: cdk.RemovalPolicy.RETAIN,
 });
 
 // Create a load-balanced Fargate service and make it public
@@ -32,9 +33,11 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
   stack,
   `${appName}-service`,
   {
+    serviceName: `${appName}-service`,
     cluster: new ecs.Cluster(stack, `${appName}-cluster`, {
       vpc: new ec2.Vpc(stack, `${appName}-vpc`, {
-        maxAzs: 3, // Default is all AZs in region
+        vpcName: `${appName}-vpc`,
+        maxAzs: 2, // Default is all AZs in region
       }),
     }),
     cpu: 256, // .25 vCPU (default)
