@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getData } from "./actions";
 import * as common from "../cdk/common";
-import "../styles/global.css";
 
 export default async function Page() {
   const data = await getData();
