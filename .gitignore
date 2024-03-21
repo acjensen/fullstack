@@ -4,5 +4,4 @@ tsconfig.tsbuildinfo
 
 # CDK asset staging directory
 .cdk.staging
-cdk.out/*
-!cdk.out/forums-stack.template.json
+cdk.out

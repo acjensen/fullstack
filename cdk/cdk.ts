@@ -49,7 +49,7 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
       // environment: containerEnvs,
       containerPort: 80,
       enableLogging: true,
-      // taskRole: role,
+      taskRole: role,
     },
     protocol: ApplicationProtocol.HTTPS,
     domainName: "acjensen-desktop.com",
@@ -65,16 +65,4 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
   }
 );
 
-// service.taskDefinition.addContainer("forums-container", {
-//   image: ecs.ContainerImage.fromRegistry("nginx:latest"),
-//   // logging: ecs.LogDriver.awsLogs({
-//   //   streamPrefix: "demoLogs",
-//   //   logGroup: new logs.LogGroup(stack, "ContainerLogGroup", {
-//   //     retention: logs.RetentionDays.ONE_YEAR,
-//   //     removalPolicy: cdk.RemovalPolicy.DESTROY,
-//   //   }),
-//   // }),
-//   linuxParameters: new ecs.LinuxParameters(stack, "NodeExec", {
-//     initProcessEnabled: true,
-//   }),
-// });
+table.grantReadWriteData(service.taskDefinition.taskRole);
