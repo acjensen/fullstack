@@ -106,7 +106,7 @@ table.grantReadWriteData(service.taskDefinition.taskRole);
 service.targetGroup.configureHealthCheck({
   path: "/ping",
   interval: cdk.Duration.seconds(5),
-  healthyThresholdCount: 1, // Helps decrease deployment time
+  healthyThresholdCount: 2, // Helps decrease deployment time
 });
 // Speed up container deployments.
 // Ref: https://github.com/aws/aws-cdk/issues/4599
