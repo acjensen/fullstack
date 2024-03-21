@@ -1,5 +1,5 @@
-describe("health", () => {
+describe("health check", () => {
   it("is success", () => {
-    cy.visit("/health");
+    cy.visit("/ping");
   });
 });

@@ -4,7 +4,7 @@ import {
   GetItemCommand,
   UpdateItemCommand,
 } from "@aws-sdk/client-dynamodb";
-import { tableName } from "../cdk/common";
+import { fullStackAppSettings } from "../cdk/common";
 
 export async function getData() {
   const res = await fetch("https://httpbin.org/get");
@@ -22,7 +22,7 @@ export const put = async () => {
   client
     .send(
       new UpdateItemCommand({
-        TableName: tableName,
+        TableName: fullStackAppSettings.tableName,
         Key: { pk: { S: "test" } },
       })
     )
@@ -46,7 +46,7 @@ export const get = async (): Promise<string> => {
   await client
     .send(
       new GetItemCommand({
-        TableName: tableName,
+        TableName: fullStackAppSettings.tableName,
         Key: { pk: { S: "test" } },
       })
     )

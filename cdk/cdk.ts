@@ -14,7 +14,9 @@ import {
 import { HostedZone } from "aws-cdk-lib/aws-route53";
 import { CpuArchitecture, OperatingSystemFamily } from "aws-cdk-lib/aws-ecs";
 import root from "../root";
-import { account, appName, region, tableName } from "./common";
+import { fullStackAppSettings } from "./common";
+
+const { account, appName, region, tableName } = fullStackAppSettings;
 
 const app = new cdk.App();
 
@@ -52,12 +54,6 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
   `${appName}-service`,
   {
     serviceName: `${appName}-service`,
-    // cluster: new ecs.Cluster(stack, `${appName}-cluster`, {
-    //   vpc: new ec2.Vpc(stack, `${appName}-vpc`, {
-    //     vpcName: `${appName}-vpc`,
-    //     maxAzs: 1, // Default is all AZs in region
-    //   }),
-    // }),
     cpu: 256, // .25 vCPU (default)
     memoryLimitMiB: 512, // .5 GB (default)
     vpc: vpc, // Needed since we're not using NAT gateway
@@ -85,7 +81,6 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
           directory: root,
         })
       ),
-      // environment: containerEnvs,
       containerPort: 80,
       enableLogging: true,
     },
@@ -109,7 +104,7 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
 
 table.grantReadWriteData(service.taskDefinition.taskRole);
 service.targetGroup.configureHealthCheck({
-  path: "/health",
+  path: "/ping",
   interval: cdk.Duration.seconds(5),
   healthyThresholdCount: 1, // Helps decrease deployment time
 });
