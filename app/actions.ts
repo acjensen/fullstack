@@ -37,7 +37,7 @@ export const put = async () => {
   return result;
 };
 
-export const get = async (): Promise<string> => {
+export const get = async (id: string): Promise<string> => {
   console.log("get ON THE SERVER");
   const client = new DynamoDBClient({ region: process.env.REGION });
 
@@ -47,7 +47,7 @@ export const get = async (): Promise<string> => {
     .send(
       new GetItemCommand({
         TableName: fullStackAppSettings.tableName,
-        Key: { pk: { S: "test" } },
+        Key: { pk: { S: id } },
       })
     )
     .then((response) => {

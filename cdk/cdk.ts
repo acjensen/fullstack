@@ -105,8 +105,10 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
 table.grantReadWriteData(service.taskDefinition.taskRole);
 service.targetGroup.configureHealthCheck({
   path: "/ping",
+  // Below settings help decrease deployment time
   interval: cdk.Duration.seconds(5),
-  healthyThresholdCount: 2, // Helps decrease deployment time
+  healthyThresholdCount: 2,
+  timeout: cdk.Duration.seconds(3),
 });
 // Speed up container deployments.
 // Ref: https://github.com/aws/aws-cdk/issues/4599

@@ -9,6 +9,7 @@ export default async function Page() {
       <h1>{`Hello, ${common.fullStackAppSettings.appName}!`}</h1>
       <div>{JSON.stringify(common)}</div>
       <Link href="/dashboard">Dashboard</Link>
+      <Link href="/task">Task</Link>
       <div>{JSON.stringify(data)}</div>
     </div>
   );
