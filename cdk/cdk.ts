@@ -43,7 +43,7 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
       containerName: `forums-container`,
       image: ecs.ContainerImage.fromDockerImageAsset(
         new DockerImageAsset(stack, "forums-image-asset", {
-          directory: path.join(__dirname, "../"),
+          directory: path.join(__dirname, "../../"),
         })
       ),
       // environment: containerEnvs,
