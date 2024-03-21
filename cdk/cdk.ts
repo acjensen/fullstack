@@ -7,32 +7,33 @@ import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ecs_patterns from "aws-cdk-lib/aws-ecs-patterns";
 import * as logs from "aws-cdk-lib/aws-logs";
 import { DockerImageAsset } from "aws-cdk-lib/aws-ecr-assets";
-import path from "path";
 import { ApplicationProtocol } from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import { HostedZone } from "aws-cdk-lib/aws-route53";
 import { CpuArchitecture, OperatingSystemFamily } from "aws-cdk-lib/aws-ecs";
 import root from "../root";
+import { account, appName, region, tableName } from "./common";
 
 const app = new cdk.App();
 
-const stack = new cdk.Stack(app, "forums-stack", {
+const stack = new cdk.Stack(app, `${appName}-stack`, {
   env: {
-    account: "525122308447",
-    region: "us-east-1",
+    account: account,
+    region: region,
   },
 });
 
-const table = new dynamodb.TableV2(stack, "forums-table", {
+const table = new dynamodb.TableV2(stack, `${appName}-table`, {
+  tableName: tableName,
   partitionKey: { name: "pk", type: dynamodb.AttributeType.STRING },
 });
 
 // Create a load-balanced Fargate service and make it public
 const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
   stack,
-  "forums-service",
+  `${appName}-service`,
   {
-    cluster: new ecs.Cluster(stack, "forums-cluster", {
-      vpc: new ec2.Vpc(stack, "forums-vpc", {
+    cluster: new ecs.Cluster(stack, `${appName}-cluster`, {
+      vpc: new ec2.Vpc(stack, `${appName}-vpc`, {
         maxAzs: 3, // Default is all AZs in region
       }),
     }),
@@ -40,9 +41,9 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
     memoryLimitMiB: 512, // .5 GB (default)
     desiredCount: 1, // 1 (default)
     taskImageOptions: {
-      containerName: `forums-container`,
+      containerName: `${appName}-container`,
       image: ecs.ContainerImage.fromDockerImageAsset(
-        new DockerImageAsset(stack, "forums-image-asset", {
+        new DockerImageAsset(stack, `${appName}-image-asset`, {
           directory: root,
         })
       ),
@@ -52,7 +53,7 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
     },
     protocol: ApplicationProtocol.HTTPS,
     domainName: "acjensen-desktop.com",
-    domainZone: HostedZone.fromLookup(stack, "forums-hosted-zone", {
+    domainZone: HostedZone.fromLookup(stack, `${appName}-hosted-zone`, {
       domainName: "acjensen-desktop.com",
     }),
     redirectHTTP: true,

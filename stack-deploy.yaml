@@ -1,4 +1,0 @@
-template-file-path: cdk.out/forums-stack.template.json
-parameters:
-  BootstrapVersion: /cdk-bootstrap/hnb659fds/version
-tags: {}

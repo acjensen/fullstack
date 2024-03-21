@@ -1,9 +1,9 @@
 "use server";
-import { AWSError, Request } from "aws-sdk";
 import DynamoDB, {
   GetItemInput,
   UpdateItemInput,
 } from "aws-sdk/clients/dynamodb";
+import { tableName } from "../cdk/common";
 
 export async function getData() {
   const res = await fetch("https://httpbin.org/get");
@@ -18,7 +18,7 @@ export const put = async () => {
   const client = new DynamoDB({ region: "us-east-1" });
 
   const params: UpdateItemInput = {
-    TableName: "forums-stack-forumstableE10A93B1-1M75IKHDBDX6U",
+    TableName: "fullstack-stack-fullstacktableE10A93B1-1M75IKHDBDX6U",
     Key: { pk: { S: "test" } },
   };
 
@@ -33,7 +33,7 @@ export const get = async (): Promise<string> => {
   const client = new DynamoDB({ region: "us-east-1" });
 
   const params: GetItemInput = {
-    TableName: "forums-stack-forumstableE10A93B1-1M75IKHDBDX6U",
+    TableName: tableName,
     Key: { pk: { S: "test" } },
     // ExpressionAttributeNames: { '#N': 'name', '#E': 'email' },
     // ExpressionAttributeValues: { ':n': { S: 'newName' } },

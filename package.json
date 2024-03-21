@@ -1,5 +1,5 @@
 {
-  "name": "forums-2",
+  "name": "fullstack",
   "version": "1.0.0",
   "bin": {
     "cdk": "cdk/cdk.js"
@@ -9,11 +9,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "deploy": "cdk deploy",
     "cdk:build": "tsc",
     "cdk:watch": "tsc -w",
     "cdk:test": "jest",
     "cdk": "cdk",
-    "cypress": "npx cypress open"
+    "cypress": "npx cypress open --e2e --browser=chrome",
+    "all": "next dev & (./wait-for-server.sh && npx cypress open --e2e --browser=chrome) & wait"
   },
   "author": "",
   "license": "ISC",
