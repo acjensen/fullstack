@@ -2,8 +2,6 @@
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-// import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
-// import { Runtime } from "aws-cdk-lib/aws-lambda";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as ecs from "aws-cdk-lib/aws-ecs";
 import * as ecs_patterns from "aws-cdk-lib/aws-ecs-patterns";
@@ -13,6 +11,8 @@ import path from "path";
 import { ApplicationProtocol } from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import { HostedZone } from "aws-cdk-lib/aws-route53";
 import { CpuArchitecture, OperatingSystemFamily } from "aws-cdk-lib/aws-ecs";
+import root from "../root";
+
 const app = new cdk.App();
 
 const stack = new cdk.Stack(app, "forums-stack", {
@@ -43,13 +43,12 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
       containerName: `forums-container`,
       image: ecs.ContainerImage.fromDockerImageAsset(
         new DockerImageAsset(stack, "forums-image-asset", {
-          directory: path.join(__dirname, "../../"),
+          directory: root,
         })
       ),
       // environment: containerEnvs,
       containerPort: 80,
       enableLogging: true,
-      taskRole: role,
     },
     protocol: ApplicationProtocol.HTTPS,
     domainName: "acjensen-desktop.com",
