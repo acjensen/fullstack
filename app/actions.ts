@@ -14,31 +14,28 @@ export async function getData() {
   return res.json();
 }
 
-export const put = async () => {
-  console.log("put ON THE SERVER");
+export const put = async (id: string) => {
   const client = new DynamoDBClient({ region: process.env.REGION });
 
-  let result: string = "sdf";
-  client
-    .send(
-      new UpdateItemCommand({
-        TableName: fullStackAppSettings.tableName,
-        Key: { pk: { S: "test" } },
-      })
-    )
-    .then((response) => {
-      console.log(response);
-      result = "SUCCESS";
+  const result = await client.send(
+    new UpdateItemCommand({
+      TableName: fullStackAppSettings.tableName,
+      Key: { pk: { S: id } },
     })
-    .catch((error) => {
-      console.log(error);
-      result = "ERROR";
-    });
-  return result;
+  );
+  return JSON.stringify(result).toString();
+  //   .then((response) => {
+  //     console.log(response);
+  //     result = "SUCCESS";
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //     result = "ERROR";
+  //   });
+  // return result;
 };
 
 export const get = async (id: string): Promise<string> => {
-  console.log("get ON THE SERVER");
   const client = new DynamoDBClient({ region: process.env.REGION });
 
   let result: string = "sdf";
@@ -57,7 +54,7 @@ export const get = async (id: string): Promise<string> => {
     })
     .catch((error) => {
       console.log(error, error.stack);
-      // result = error.stack; // for debugging purposes
+      // result = error.stack; // for local debugging purposes
       result = "ERROR";
     });
 

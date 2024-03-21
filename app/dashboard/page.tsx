@@ -1,19 +1,40 @@
 "use client";
 import React, { useState } from "react";
 import { get, put } from "../actions";
+import { CopyBlock } from "react-code-blocks";
 
 export default function Page() {
   const [message, setMessage] = useState("get dynamodb");
+
+  const [text, setText] = useState("test");
+
+  const [debugText, setDebugText] = useState("");
+
+  const onSubmit = (event: any) => {
+    put(text).then((t) => {
+      setDebugText(t);
+    });
+    event.preventDefault();
+  };
+
+  const onChange = (event: any) => {
+    setText(event.target.value);
+  };
+
   return (
     <div>
-      <h1>Hello, Next.js... dashboard</h1>
-      <button className="btn" onClick={() => put()}>
-        put dynamodb
-      </button>
+      <h1>Dashboard</h1>
+      <form onSubmit={onSubmit}>
+        <label>
+          Input:
+          <textarea value={text} onChange={onChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
       <button
         className="btn btn-primary"
         onClick={() => {
-          get("test").then((m: string) => {
+          get(text).then((m: string) => {
             setMessage(m);
           });
         }}
@@ -23,7 +44,9 @@ export default function Page() {
       <div className="p-10">
         <button className="btn btn-primary">Button daisy UI</button>
       </div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <CopyBlock language={"javascript"} text={debugText} />
+      <hr className="solid"></hr>
+      <div>{debugText}</div>
     </div>
   );
 }
