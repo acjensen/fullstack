@@ -17,6 +17,10 @@ export default function Page() {
       >
         {message}
       </button>
+      <div className="p-10">
+        <button className="btn btn-primary">Button daisy UI</button>
+      </div>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
     </div>
   );
 }
