@@ -102,14 +102,22 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
       operatingSystemFamily: OperatingSystemFamily.LINUX,
     },
     // healthCheck: {
-    //   command: ["CMD-SHELL", "curl -f http://localhost || exit 1"],
+    //   command: ["CMD-SHELL", "curl -f http://localhost/health || exit 1"],
     // },
   }
 );
 
 table.grantReadWriteData(service.taskDefinition.taskRole);
 service.targetGroup.configureHealthCheck({
-  path: "/",
+  path: "/health",
+  interval: cdk.Duration.seconds(5),
+  healthyThresholdCount: 1, // Helps decrease deployment time
 });
-// Speed up container deployments. Ref: https://github.com/aws/aws-cdk/issues/4599
+// Speed up container deployments.
+// Ref: https://github.com/aws/aws-cdk/issues/4599
+// Ref: https://docs.aws.amazon.com/AmazonECS/latest/bestpracticesguide/load-balancer-connection-draining.html
+// Note: Do not set the value to 5 seconds when you have a service with long-lived requests,
+// such as slow file uploads or streaming connections.
+// Todo: replace taskImageOptions with taskDefinition so we can set stopTimeout in container definition,
+// which will reduce deployment times.
 service.targetGroup.setAttribute("deregistration_delay.timeout_seconds", "10");
