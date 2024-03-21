@@ -4,7 +4,6 @@ import {
   GetItemCommand,
   UpdateItemCommand,
 } from "@aws-sdk/client-dynamodb";
-// import STS, { AssumeRoleRequest } from "aws-sdk/clients/sts";
 import { tableName } from "../cdk/common";
 
 export async function getData() {
@@ -19,19 +18,23 @@ export const put = async () => {
   console.log("put ON THE SERVER");
   const client = new DynamoDBClient({ region: process.env.REGION });
 
+  let result: string = "sdf";
   client
     .send(
       new UpdateItemCommand({
-        TableName: "fullstack",
+        TableName: tableName,
         Key: { pk: { S: "test" } },
       })
     )
     .then((response) => {
       console.log(response);
+      result = "SUCCESS";
     })
     .catch((error) => {
       console.log(error);
+      result = "ERROR";
     });
+  return result;
 };
 
 export const get = async (): Promise<string> => {
@@ -54,6 +57,7 @@ export const get = async (): Promise<string> => {
     })
     .catch((error) => {
       console.log(error, error.stack);
+      // result = error.stack; // for debugging purposes
       result = "ERROR";
     });
 

@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "cdk deploy",
+    "deploy": "cdk deploy --require-approval=never",
     "cdk:build": "tsc",
     "cdk:watch": "tsc -w",
     "cdk:test": "jest",
