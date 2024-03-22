@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { get, put } from "../actions";
 import { CopyBlock } from "react-code-blocks";
+import { auth } from "../auth";
 
-export default function Page() {
+export default async function Page() {
   const [message, setMessage] = useState("get dynamodb");
 
   const [text, setText] = useState("test");
@@ -11,7 +12,7 @@ export default function Page() {
   const [debugText, setDebugText] = useState("");
 
   const onSubmit = (event: any) => {
-    put(text).then((t) => {
+    put(text, { name: "password", value: text }).then((t) => {
       setDebugText(t);
     });
     event.preventDefault();
@@ -21,9 +22,16 @@ export default function Page() {
     setText(event.target.value);
   };
 
+  let session = await auth();
+
   return (
     <div>
       <h1>Dashboard</h1>
+      <div>
+        {session
+          ? `you're logged in as ${session.user?.email}`
+          : "you're not logged in"}
+      </div>
       <form onSubmit={onSubmit}>
         <label>
           Input:

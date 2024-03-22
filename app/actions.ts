@@ -14,13 +14,21 @@ export async function getData() {
   return res.json();
 }
 
-export const put = async (id: string) => {
+export const put = async (
+  id: string,
+  attribute: { name: string; value: string }
+) => {
   const client = new DynamoDBClient({ region: process.env.REGION });
 
   const result = await client.send(
     new UpdateItemCommand({
       TableName: fullStackAppSettings.tableName,
       Key: { pk: { S: id } },
+      UpdateExpression: `set ${attribute.name} = :attributeName`,
+      ExpressionAttributeValues: {
+        ":attributeName": { S: attribute.value },
+      },
+      // ReturnValues: "ALL_NEW",
     })
   );
   return JSON.stringify(result).toString();
@@ -35,10 +43,10 @@ export const put = async (id: string) => {
   // return result;
 };
 
-export const get = async (id: string): Promise<string> => {
+export const get = async (id: string): Promise<any> => {
   const client = new DynamoDBClient({ region: process.env.REGION });
 
-  let result: string = "sdf";
+  let result: any = "";
   const callback = (error: any, data: any) => {};
   await client
     .send(
@@ -49,13 +57,13 @@ export const get = async (id: string): Promise<string> => {
     )
     .then((response) => {
       console.log(response.Item);
-      console.log(response.Item!.pk!.S!);
-      result = response.Item!.pk!.S!;
+      console.log(response.Item!);
+      result = response.Item!;
     })
     .catch((error) => {
       console.log(error, error.stack);
       // result = error.stack; // for local debugging purposes
-      result = "ERROR";
+      result = undefined;
     });
 
   return result;
