@@ -15,6 +15,9 @@ import { HostedZone } from "aws-cdk-lib/aws-route53";
 import { CpuArchitecture, OperatingSystemFamily } from "aws-cdk-lib/aws-ecs";
 import root from "../root";
 import { fullStackAppSettings } from "./common";
+import { DockerBuildSecret } from "aws-cdk-lib";
+import { CfnParameter } from "aws-cdk-lib";
+import fs from "node:fs/promises";
 
 const { account, appName, region, tableName } = fullStackAppSettings;
 

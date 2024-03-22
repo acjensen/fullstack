@@ -1,4 +1,4 @@
-FROM node:20
+FROM --platform=linux/arm64 node:20
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
 # Installing dependencies

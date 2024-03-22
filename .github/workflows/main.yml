@@ -1,0 +1,38 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deployment has been triggered by a ${{ github.event_name }} event."
+      - run: echo "Deploying ${{ github.repository }} on branch ${{ github.ref }}."
+      - uses: actions/checkout@v4
+      - name: "Set up QEMU"
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: "arm64"
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          architecture: "x64"
+      - name: Install AWS CDK
+        run: |
+          npm install -g aws-cdk
+          npm install
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: "us-east-1"
+      - name: Copy secrets to env
+        run: echo AUTH_SECRET=${{ secrets.AUTH_SECRET }} >> .env
+      - name: Deploy to AWS
+        run: cdk deploy --require-approval=never
