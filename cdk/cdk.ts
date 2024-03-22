@@ -15,6 +15,9 @@ import { HostedZone } from "aws-cdk-lib/aws-route53";
 import { CpuArchitecture, OperatingSystemFamily } from "aws-cdk-lib/aws-ecs";
 import root from "../root";
 import { fullStackAppSettings } from "./common";
+import { DockerBuildSecret } from "aws-cdk-lib";
+import { CfnParameter } from "aws-cdk-lib";
+import fs from "node:fs/promises";
 
 const { account, appName, region, tableName } = fullStackAppSettings;
 
@@ -79,6 +82,9 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
       image: ecs.ContainerImage.fromDockerImageAsset(
         new DockerImageAsset(stack, `${appName}-image-asset`, {
           directory: root,
+          buildSecrets: {
+            ["AUTH_SECRET"]: `env=${process.env.AUTH_SECRET!}`, // todo: load from env file
+          },
         })
       ),
       containerPort: 80,
