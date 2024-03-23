@@ -82,6 +82,9 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
       image: ecs.ContainerImage.fromDockerImageAsset(
         new DockerImageAsset(stack, `${appName}-image-asset`, {
           directory: root,
+          buildSecrets: {
+            ["AUTH_SECRET"]: `env=${process.env.AUTH_SECRET!}`, // todo: load from env file
+          },
         })
       ),
       containerPort: 80,
