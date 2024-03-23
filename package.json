@@ -15,6 +15,7 @@
     "cdk:test": "jest",
     "cdk": "cdk",
     "synth": "cdk synth",
+    "docker": "docker run -p 80:80 -v $HOME/.aws:/root/.aws:ro -it $(docker build -q .)",
     "test": "npm run test:dev",
     "test:dev": "next dev -p 3010 & (./wait-for-server-3010.sh && npx cypress run --no-runner-ui --e2e --browser=chrome --config baseUrl=http://localhost:3010) & wait",
     "test:dev:open": "next dev -p 3000 & (./wait-for-server-3000.sh && npx cypress open --e2e --browser=chrome --config baseUrl=http://localhost:3000) & wait",
