@@ -1,7 +1,7 @@
-import { auth, signOut } from "../auth";
+import { auth, signOut } from "../auth/auth";
 
 export default async function Page() {
-  let session = await auth();
+  const session = await auth();
 
   return (
     <div className="flex h-screen bg-black">

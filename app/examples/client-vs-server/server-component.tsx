@@ -5,3 +5,10 @@ export async function getData() {
   }
   return res.json();
 }
+
+const ServerComponent = async (props: any) => {
+  const data = await getData();
+  return <div>{"response: " + JSON.stringify(data)}</div>;
+};
+
+export default ServerComponent;

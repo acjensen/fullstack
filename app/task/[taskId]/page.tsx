@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { get } from "../../actions";
+import { get } from "../../server/actions";
 
 export default function Page({ params }: { params: { taskId: string } }) {
   const [taskId, setTaskId] = useState("");

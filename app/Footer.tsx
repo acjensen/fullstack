@@ -12,7 +12,7 @@ export default function Footer() {
             </a>
           </li>
           <li>
-            <a href="/navbar/privacy" className="hover:underline me-4 md:me-6">
+            <a href="/privacy" className="hover:underline me-4 md:me-6">
               Privacy Policy
             </a>
           </li>

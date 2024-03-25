@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { put } from "../actions";
-import { SubmitButton } from "../submit-button";
+import { put } from "../server/actions";
+import { SubmitButton } from "../auth/submit-button";
 
 export const defaultColor = "#9a5b5b";
 

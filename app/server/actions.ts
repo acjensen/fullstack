@@ -4,7 +4,7 @@ import {
   GetItemCommand,
   UpdateItemCommand,
 } from "@aws-sdk/client-dynamodb";
-import { fullStackAppSettings } from "../cdk/common";
+import { fullStackAppSettings } from "../../cdk/common";
 
 export const put = async (
   id: string,
@@ -24,15 +24,6 @@ export const put = async (
     })
   );
   return JSON.stringify(result).toString();
-  //   .then((response) => {
-  //     console.log(response);
-  //     result = "SUCCESS";
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //     result = "ERROR";
-  //   });
-  // return result;
 };
 
 export const get = async (id: string): Promise<any> => {

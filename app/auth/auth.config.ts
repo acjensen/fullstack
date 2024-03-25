@@ -1,8 +1,9 @@
 import { NextAuthConfig } from "next-auth";
+import { protectedRoutes, pages } from "../pages";
 
 export const authConfig = {
   pages: {
-    signIn: "/login",
+    signIn: pages.login,
   },
   providers: [
     // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
@@ -10,8 +11,12 @@ export const authConfig = {
   ],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-      let isLoggedIn = !!auth?.user;
-      let isProtected = nextUrl.pathname.startsWith("/protected");
+      const isLoggedIn = !!auth?.user;
+      const isProtected = protectedRoutes.some((path) => {
+        return nextUrl.pathname.startsWith(path);
+      });
+      console.log(isProtected);
+      console.log(nextUrl.pathname);
 
       if (isProtected) {
         return isLoggedIn;

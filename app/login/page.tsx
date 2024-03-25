@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { Form } from "../form";
-import { signIn } from "../auth";
-import { SubmitButton } from "../submit-button";
+import { Form } from "../auth/form";
+import { signIn } from "../auth/auth";
+import { SubmitButton } from "../auth/submit-button";
 import { redirect } from "next/navigation";
+import { pages } from "../pages";
 
 export default function Login(props: any) {
+  const callbackUrl: string | undefined = props.searchParams?.callbackUrl;
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
       <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
@@ -23,14 +25,14 @@ export default function Login(props: any) {
             let redirectPath: string | undefined = undefined;
             try {
               await signIn("credentials", {
-                redirectTo: "/protected",
+                // redirectTo: "/dashboard",
                 email: formData.get("email") as string,
                 password: formData.get("password") as string,
-                redirect: false,
+                redirect: false, // We're using server-side redirection.
               });
-              redirectPath = "/protected";
+              redirectPath = callbackUrl;
             } catch {
-              redirectPath = "/login?error=true";
+              redirectPath = `${pages.login}?error=true`;
             } finally {
               if (redirectPath) {
                 redirect(redirectPath);
