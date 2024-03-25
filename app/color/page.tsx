@@ -1,7 +1,7 @@
 // import { useState } from "react";
 import { get } from "../actions";
 import { auth } from "../auth";
-import Picker from "./Picker";
+import Picker, { defaultColor } from "./Picker";
 
 export default async function Page() {
   let session = await auth();
@@ -9,7 +9,9 @@ export default async function Page() {
   return (
     <Picker
       session={session}
-      initialColor={session && (await get(session!.user!.email!)).color.S}
+      initialColor={
+        (session && (await get(session!.user!.email!)).color.S) || defaultColor
+      }
     ></Picker>
   );
 }

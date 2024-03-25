@@ -1,6 +1,7 @@
 import { auth } from "../auth";
 
-export default async function Navbar({ children }: { children: any }) {
+export default async function Navbar() {
+  // export default async function Navbar({ children }: { children: any }) {
   let session = await auth();
 
   return (
@@ -8,14 +9,10 @@ export default async function Navbar({ children }: { children: any }) {
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a
-            href="https://acjensen-desktop.com/"
+            href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            {/* <img
-              src="https://acjensen-desktop.com/docs/images/logo.svg"
-              className="h-8"
-              alt="Logo"
-            /> */}
+            <img src="/images/logo.svg" className="h-8" alt="Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               {session ? session.user?.email : "Log in"}
             </span>
@@ -135,7 +132,7 @@ export default async function Navbar({ children }: { children: any }) {
         </div>
       </nav>
 
-      {children}
+      {/* {children} */}
     </div>
   );
 }

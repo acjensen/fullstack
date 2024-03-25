@@ -4,8 +4,10 @@ import { useState } from "react";
 import { put } from "../actions";
 import { SubmitButton } from "../submit-button";
 
+export const defaultColor = "#9a5b5b";
+
 const Picker = (props: { session: any; initialColor?: string }) => {
-  const [value, setValue] = useState(props.initialColor || "#9a5b5b");
+  const [value, setValue] = useState(props.initialColor || defaultColor);
   return (
     <div>
       <h1>What's your favorite color???</h1>

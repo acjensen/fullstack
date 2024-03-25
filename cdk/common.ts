@@ -1,3 +1,5 @@
+import { getRevision } from "../app/utils";
+
 export interface AppSettingsProps {
   appName: string;
   account: string;
@@ -9,12 +11,14 @@ export interface AppSettings {
   account: string;
   region: string;
   tableName: string;
+  revision: string;
 }
 
 export const appSettings = (props: AppSettingsProps): AppSettings => {
   return {
     ...props,
     tableName: `${props.appName}-table`,
+    revision: getRevision(),
   };
 };
 

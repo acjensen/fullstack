@@ -1,17 +1,34 @@
 import Link from "next/link";
-import { getData } from "./actions";
 import * as common from "../cdk/common";
 
 export default async function Page() {
-  const data = await getData();
   return (
     <div>
-      <h1>{`App name: ${common.fullStackAppSettings.appName}`}</h1>
-      <div>{JSON.stringify(common, null, 2)}</div>
-      <Link href="/dashboard">Dashboard</Link>
-      <div></div>
-      <Link href="/task">Task</Link>
-      <div>{JSON.stringify(data, null, 2)}</div>
+      <ul>
+        {Object.entries(common.fullStackAppSettings).map(([k, v]) => {
+          return <li>{`${k}: ${v}`}</li>;
+        })}
+      </ul>
+      <ul>
+        {[
+          "protected",
+          "dashboard",
+          "task",
+          "login",
+          "logout",
+          "examples/server-page",
+          "privacy",
+          "color",
+          "ping",
+        ].map((page) => {
+          const pageName = `/${page}`;
+          return (
+            <li>
+              <Link href={pageName}>{pageName}</Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
