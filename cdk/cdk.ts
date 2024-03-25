@@ -14,12 +14,9 @@ import {
 import { HostedZone } from "aws-cdk-lib/aws-route53";
 import { CpuArchitecture, OperatingSystemFamily } from "aws-cdk-lib/aws-ecs";
 import root from "../root";
-import { fullStackAppSettings } from "./common";
-import { DockerBuildSecret } from "aws-cdk-lib";
-import { CfnParameter } from "aws-cdk-lib";
-import fs from "node:fs/promises";
+import { appSettings } from "./common";
 
-const { account, appName, region, tableName } = fullStackAppSettings;
+const { account, appName, region, tableName } = appSettings;
 
 const app = new cdk.App();
 

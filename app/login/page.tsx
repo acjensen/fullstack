@@ -1,12 +1,19 @@
 import Link from "next/link";
 import { Form } from "../auth/form";
-import { signIn } from "../auth/auth";
+import { auth, signIn } from "../auth/auth";
 import { SubmitButton } from "../auth/submit-button";
 import { redirect } from "next/navigation";
 import { pages } from "../pages";
 
-export default function Login(props: any) {
+export default async function Login(props: any) {
   const callbackUrl: string | undefined = props.searchParams?.callbackUrl;
+
+  // If already logged in, skip the login page.
+  const session = await auth();
+  if (session) {
+    redirect(callbackUrl || "/");
+  }
+
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
       <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
@@ -30,9 +37,9 @@ export default function Login(props: any) {
                 password: formData.get("password") as string,
                 redirect: false, // We're using server-side redirection.
               });
-              redirectPath = callbackUrl;
+              redirectPath = callbackUrl || "/";
             } catch {
-              redirectPath = `${pages.login}?error=true`;
+              redirectPath = `${pages.login.route}?error=true`;
             } finally {
               if (redirectPath) {
                 redirect(redirectPath);

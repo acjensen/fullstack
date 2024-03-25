@@ -5,8 +5,6 @@ import Picker, { defaultColor } from "./Picker";
 
 export default async function Page() {
   let session = await auth();
-  console.log("session");
-  console.log(session);
 
   return (
     <Picker

@@ -14,7 +14,7 @@ export interface AppSettings {
   revision: string;
 }
 
-export const appSettings = (props: AppSettingsProps): AppSettings => {
+export const getAppSettings = (props: AppSettingsProps): AppSettings => {
   return {
     ...props,
     tableName: `${props.appName}-table`,
@@ -22,8 +22,10 @@ export const appSettings = (props: AppSettingsProps): AppSettings => {
   };
 };
 
-export const fullStackAppSettings = appSettings({
+export const appSettings = getAppSettings({
   appName: "fullstack",
   account: "525122308447",
   region: "us-east-1",
 });
+
+export const simpleLayout = false;

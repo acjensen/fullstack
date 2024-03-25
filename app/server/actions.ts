@@ -4,7 +4,7 @@ import {
   GetItemCommand,
   UpdateItemCommand,
 } from "@aws-sdk/client-dynamodb";
-import { fullStackAppSettings } from "../../cdk/common";
+import { appSettings } from "../../cdk/common";
 
 export const put = async (
   id: string,
@@ -14,7 +14,7 @@ export const put = async (
 
   const result = await client.send(
     new UpdateItemCommand({
-      TableName: fullStackAppSettings.tableName,
+      TableName: appSettings.tableName,
       Key: { pk: { S: id } },
       UpdateExpression: `set ${attribute.name} = :attributeName`,
       ExpressionAttributeValues: {
@@ -34,17 +34,14 @@ export const get = async (id: string): Promise<any> => {
   await client
     .send(
       new GetItemCommand({
-        TableName: fullStackAppSettings.tableName,
+        TableName: appSettings.tableName,
         Key: { pk: { S: id } },
       })
     )
     .then((response) => {
-      console.log(response.Item);
-      console.log(response.Item!);
       result = response.Item!;
     })
     .catch((error) => {
-      console.log(error, error.stack);
       // result = error.stack; // for local debugging purposes
       result = undefined;
     });

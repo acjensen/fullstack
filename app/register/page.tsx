@@ -16,7 +16,7 @@ export default function Login() {
       return "User already exists"; // TODO: Handle errors with useFormStatus
     } else {
       await createUser(email, password);
-      redirect(pages.login);
+      redirect(pages.login.route);
     }
   }
 
@@ -33,7 +33,10 @@ export default function Login() {
           <SubmitButton>Sign Up</SubmitButton>
           <p className="text-center text-sm text-gray-600">
             {"Already have an account? "}
-            <Link href={pages.login} className="font-semibold text-gray-800">
+            <Link
+              href={pages.login.route}
+              className="font-semibold text-gray-800"
+            >
               Sign in
             </Link>
             {" instead."}

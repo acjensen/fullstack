@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+    <g style=""
+        transform="matrix(4.2164788246154785, 0, 0, 4.2164788246154785, -202.80715942382812, 178.1910400390625)">
+        <text style="white-space: pre; fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 21.6px;"
+            x="59.799" y="24.239">Company</text>
+        <path style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"
+            d="M 61.026 31.265 C 68.633 29.186 79.234 28.44 88.236 27.651 C 104.102 26.26 124.78 25.258 140.956 26.973" />
+    </g>
+</svg>

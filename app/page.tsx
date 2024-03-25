@@ -1,15 +1,14 @@
 import Link from "next/link";
-import { routes } from "./pages";
+import { pages } from "./pages";
 
 export default async function Page() {
   return (
     <div>
       <ul>
-        {routes.map((page) => {
-          const pageName = `${page}`;
+        {Object.values(pages).map((page) => {
           return (
             <li>
-              <Link href={pageName}>{pageName}</Link>
+              <Link href={`${page.route}`}>{page.displayName}</Link>
             </li>
           );
         })}
