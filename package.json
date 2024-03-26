@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "deploy": "cdk deploy --require-approval=never",
+    "deploy:watch": "cdk watch --no-hotswap",
     "tsc": "tsc",
     "tsc:watch": "tsc -w",
     "synth": "cdk synth",
