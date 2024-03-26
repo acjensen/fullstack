@@ -1,6 +1,7 @@
 node_modules
 .next
 tsconfig.tsbuildinfo
+coverage
 
 # CDK asset staging directory
 .cdk.staging

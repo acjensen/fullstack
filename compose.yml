@@ -1,0 +1,15 @@
+# This could be useful for local testing using images matching cloud infra.
+services:
+  fullstack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:80:80"
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: .
+          ignore:
+            - node_modules/
