@@ -1,5 +1,5 @@
-describe("index", () => {
-  it("loads", () => {
-    cy.visit("/");
+describe('index', () => {
+  it('loads', () => {
+    cy.visit('/');
   });
 });

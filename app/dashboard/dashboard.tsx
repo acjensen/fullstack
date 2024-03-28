@@ -1,13 +1,13 @@
-"use client";
-import React, { useState } from "react";
-import { get, put } from "../server/actions";
+'use client';
+
+import { useState } from 'react';
+import { get, put } from '../server/actions';
 
 export default function dashboard(props: { session: any }) {
-  const session = props.session;
+  const { session } = props;
   const isLoggedIn = !!session;
-  const [message, setMessage] = useState("get dynamodb");
-  const [text, setText] = useState("test");
-  const [debugText, setDebugText] = useState("");
+  const [text, setText] = useState('test');
+  const [debugText, setDebugText] = useState('');
 
   return (
     <div>
@@ -22,38 +22,39 @@ export default function dashboard(props: { session: any }) {
           event.preventDefault();
         }}
       >
-        <label>
+        <label htmlFor="textArea">
           Input:
           <textarea
+            id="textArea"
             value={text}
             onChange={(event: any) => {
               setText(event.target.value);
             }}
           />
         </label>
-        <div></div>
+        <div />
         <input type="submit" value="SUBMIT" />
       </form>
-      <hr className="solid"></hr>
+      <hr className="solid" />
       <h1>Get an attribute to from your user record.</h1>
       <button
-        className="btn btn-primary"
+        type="button"
         onClick={() => {
           if (isLoggedIn) {
             get(session.user?.email).then((item: any) => {
               // setDebugText(JSON.stringify(item));
-              if (item && item[text] && item[text].S) {
+              if (item?.[text]?.S) {
                 setDebugText(item[text].S);
                 return;
               }
-              setDebugText("NOT FOUND");
+              setDebugText('NOT FOUND');
             });
           }
         }}
       >
         GET
       </button>
-      <hr className="solid"></hr>
+      <hr className="solid" />
       <div>{debugText}</div>
     </div>
   );

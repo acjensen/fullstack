@@ -2,8 +2,8 @@ export function Form({
   action,
   children,
 }: {
-  action: any;
-  children: React.ReactNode;
+  action: any
+  children: React.ReactNode
 }) {
   return (
     <form
@@ -13,34 +13,34 @@ export function Form({
       <div>
         <label
           htmlFor="email"
-          className="block text-xs text-gray-600 uppercase"
+          className="block text-xs uppercase text-gray-600"
         >
           Email Address
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="user@acme.com"
+            autoComplete="email"
+            required
+            className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm placeholder:text-gray-400 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
+          />
         </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="user@acme.com"
-          autoComplete="email"
-          required
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-        />
       </div>
       <div>
         <label
           htmlFor="password"
-          className="block text-xs text-gray-600 uppercase"
+          className="block text-xs uppercase text-gray-600"
         >
           Password
+          <input
+            id="password"
+            name="password"
+            type="password"
+            required
+            className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm placeholder:text-gray-400 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
+          />
         </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          required
-          className="mt-1 block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-black focus:outline-none focus:ring-black sm:text-sm"
-        />
       </div>
       {children}
     </form>

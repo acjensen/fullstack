@@ -44,10 +44,13 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-  ],
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.eslintrc.js",
+    ],
   "exclude": [
     "node_modules",
-    "cdk.out",
+    "cdk.out"
   ]
 }

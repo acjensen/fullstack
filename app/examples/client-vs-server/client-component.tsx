@@ -1,19 +1,17 @@
-"use client";
-import { useEffect, useState } from "react";
+'use client';
 
-const ClientComponent = (props: any) => {
-  const [data, setData] = useState("loading...");
+import { useEffect, useState } from 'react';
+
+const ClientComponent = () => {
+  const [data, setData] = useState('loading...');
   useEffect(() => {
-    fetch("https://httpbin.org/get")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(JSON.stringify(data, null, 2));
-      })
-      .catch((_err) => {
-        throw new Error("Failed to fetch data");
+    fetch('https://httpbin.org/get')
+      .then(async (res) => res.json())
+      .then((_data) => {
+        setData(JSON.stringify(_data, null, 2));
       });
   }, []);
-  return <div>{"response: " + data}</div>;
+  return <div>{`response: ${data}`}</div>;
 };
 
 export default ClientComponent;

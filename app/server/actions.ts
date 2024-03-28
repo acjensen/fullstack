@@ -1,14 +1,15 @@
-"use server";
+'use server';
+
 import {
   DynamoDBClient,
   GetItemCommand,
   UpdateItemCommand,
-} from "@aws-sdk/client-dynamodb";
-import { appSettings } from "../../cdk/common";
+} from '@aws-sdk/client-dynamodb';
+import { appSettings, debugMode } from '../../cdk/common';
 
 export const put = async (
   id: string,
-  attribute: { name: string; value: string }
+  attribute: { name: string, value: string },
 ) => {
   const client = new DynamoDBClient({ region: process.env.REGION });
 
@@ -18,10 +19,10 @@ export const put = async (
       Key: { pk: { S: id } },
       UpdateExpression: `set ${attribute.name} = :attributeName`,
       ExpressionAttributeValues: {
-        ":attributeName": { S: attribute.value },
+        ':attributeName': { S: attribute.value },
       },
       // ReturnValues: "ALL_NEW",
-    })
+    }),
   );
   return JSON.stringify(result).toString();
 };
@@ -29,21 +30,23 @@ export const put = async (
 export const get = async (id: string): Promise<any> => {
   const client = new DynamoDBClient({ region: process.env.REGION });
 
-  let result: any = "";
-  const callback = (error: any, data: any) => {};
+  let result: any = '';
   await client
     .send(
       new GetItemCommand({
         TableName: appSettings.tableName,
         Key: { pk: { S: id } },
-      })
+      }),
     )
     .then((response) => {
       result = response.Item!;
     })
     .catch((error) => {
-      // result = error.stack; // for local debugging purposes
-      result = undefined;
+      if (debugMode) {
+        result = error.stack;
+      } else {
+        result = undefined;
+      }
     });
 
   return result;

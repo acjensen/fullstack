@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { Form } from "../auth/form";
-import { auth, signIn } from "../auth/auth";
-import { SubmitButton } from "../auth/submit-button";
-import { redirect } from "next/navigation";
-import { pages } from "../pages";
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { auth, signIn } from '../auth/auth';
+import { Form } from '../auth/form';
+import { SubmitButton } from '../auth/submit-button';
+import { pages } from '../pages';
 
 export default async function Login(props: any) {
   const callbackUrl: string | undefined = props.searchParams?.callbackUrl;
@@ -11,7 +11,7 @@ export default async function Login(props: any) {
   // If already logged in, skip the login page.
   const session = await auth();
   if (session) {
-    redirect(callbackUrl || "/");
+    redirect(callbackUrl || '/');
   }
 
   return (
@@ -28,16 +28,17 @@ export default async function Login(props: any) {
         </div>
         <Form
           action={async (formData: FormData) => {
-            "use server";
-            let redirectPath: string | undefined = undefined;
+            'use server';
+
+            let redirectPath: string | undefined;
             try {
-              await signIn("credentials", {
+              await signIn('credentials', {
                 // redirectTo: "/dashboard",
-                email: formData.get("email") as string,
-                password: formData.get("password") as string,
+                email: formData.get('email') as string,
+                password: formData.get('password') as string,
                 redirect: false, // We're using server-side redirection.
               });
-              redirectPath = callbackUrl || "/";
+              redirectPath = callbackUrl || '/';
             } catch {
               redirectPath = `${pages.login.route}?error=true`;
             } finally {
@@ -53,7 +54,7 @@ export default async function Login(props: any) {
             <Link href="/register" className="font-semibold text-gray-800">
               Sign up
             </Link>
-            {" for free."}
+            {' for free.'}
           </p>
         </Form>
       </div>

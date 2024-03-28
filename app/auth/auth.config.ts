@@ -1,5 +1,5 @@
-import { NextAuthConfig } from "next-auth";
-import { protectedPages as protectedPages, pages } from "../pages";
+import { type NextAuthConfig } from 'next-auth';
+import { protectedPages, pages } from '../pages';
 
 export const authConfig = {
   pages: {
@@ -12,16 +12,12 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isProtected = protectedPages.some((page) => {
-        return nextUrl.pathname.startsWith(page.route);
-      });
+      const isProtected = protectedPages.some((page) => nextUrl.pathname.startsWith(page.route));
 
       if (isProtected) {
         return isLoggedIn;
-      } else {
-        if (isLoggedIn) {
-          Response.redirect(nextUrl);
-        }
+      } if (isLoggedIn) {
+        Response.redirect(nextUrl);
       }
 
       // not logged in and not protected

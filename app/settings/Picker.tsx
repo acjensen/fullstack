@@ -1,24 +1,25 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { put } from "../server/actions";
-import { SubmitButton } from "../auth/submit-button";
+import { useState } from 'react';
+import { put } from '../server/actions';
+import { SubmitButton } from '../auth/submit-button';
 
-export const defaultColor = "#9a5b5b";
+export const defaultColor = '#9a5b5b';
 
-const Picker = (props: { session: any; initialColor?: string }) => {
-  const [value, setValue] = useState(props.initialColor || defaultColor);
+const Picker = (props: { session: any; initialColor: string }) => {
+  const { initialColor, session } = props;
+  const [value, setValue] = useState(initialColor);
   return (
     <div>
-      <h1>What's your favorite color???</h1>
+      <h1>What is your favorite color???</h1>
 
       <form
-        action={async (formData: FormData) => {
+        action={async () => {
           // "use server";
-          if (props.session) {
-            await put(props.session.user?.email!, {
-              name: "color",
-              value: value,
+          if (session) {
+            await put(session.user?.email, {
+              name: 'color',
+              value,
             });
           }
         }}

@@ -1,6 +1,6 @@
 export default function Page() {
   return (
-    <div className="flex max-w-screen-md m-6">
+    <div className="m-6 flex max-w-screen-md">
       <div>
         <strong>Privacy Policy</strong>
         <p>
@@ -24,13 +24,13 @@ export default function Page() {
           <li>The time spent on the Application</li>
           <li>The operating system you use on your mobile device</li>
         </ul>
-        <p></p>
+        <p />
         <br />
         <p>
           The Application does not gather precise information about the location
           of your mobile device.
         </p>
-        <div style={{ display: "none" }}>
+        <div style={{ display: 'none' }}>
           <p>
             The Application collects your device's location, which helps the
             Service Provider determine your approximate geographical location
@@ -101,7 +101,7 @@ export default function Page() {
             statement.
           </li>
         </ul>
-        <p></p>
+        <p />
         <br />
         <strong>Opt-Out Rights</strong>
         <p>

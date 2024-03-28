@@ -1,23 +1,23 @@
-import Link from "next/link";
-import { Form } from "../auth/form";
-import { redirect } from "next/navigation";
-import { createUser, getUser } from "../server/db";
-import { SubmitButton } from "../auth/submit-button";
-import { pages } from "../pages";
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { Form } from '../auth/form';
+import { SubmitButton } from '../auth/submit-button';
+import { pages } from '../pages';
+import { createUser, getUser } from '../server/db';
 
 export default function Login() {
   async function register(formData: FormData) {
-    "use server";
-    let email = formData.get("email") as string;
-    let password = formData.get("password") as string;
-    let user = await getUser(email);
+    'use server';
+
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const user = await getUser(email);
 
     if (user.length > 0) {
-      return "User already exists"; // TODO: Handle errors with useFormStatus
-    } else {
-      await createUser(email, password);
-      redirect(pages.login.route);
+      // return 'User already exists'; // TODO: Handle errors with useFormStatus
     }
+    await createUser(email, password);
+    redirect(pages.login.route);
   }
 
   return (
@@ -29,17 +29,17 @@ export default function Login() {
             Create an account with your email and password
           </p>
         </div>
-        <Form action={register}>
+        <Form action={(formData: FormData) => register(formData)}>
           <SubmitButton>Sign Up</SubmitButton>
           <p className="text-center text-sm text-gray-600">
-            {"Already have an account? "}
+            {'Already have an account? '}
             <Link
               href={pages.login.route}
               className="font-semibold text-gray-800"
             >
               Sign in
             </Link>
-            {" instead."}
+            {' instead.'}
           </p>
         </Form>
       </div>
