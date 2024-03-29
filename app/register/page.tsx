@@ -29,7 +29,12 @@ export default function Login() {
             Create an account with your email and password
           </p>
         </div>
-        <Form action={(formData: FormData) => register(formData)}>
+        <Form action={async (formData: FormData) => {
+          'use server';
+
+          await register(formData);
+        }}
+        >
           <SubmitButton>Sign Up</SubmitButton>
           <p className="text-center text-sm text-gray-600">
             {'Already have an account? '}

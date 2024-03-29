@@ -6,5 +6,6 @@ RUN npm install
 COPY . .
 RUN npm run build
 EXPOSE 80
+ENV NEXTAUTH_URL=https://acjensen-desktop.com
 # TODO: use ENTRYPOINT instead of CMD so ctrl-c works for local dev
 CMD ["npm", "run", "start", "--", "-p", "80"]

@@ -25,6 +25,7 @@ module.exports = {
         optionalDependencies: false,
       },
     ],
+    'arrow-body-style': 'off',
   },
   ignorePatterns: [
     // '.eslintrc.js',

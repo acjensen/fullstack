@@ -9,6 +9,7 @@ export const pages = {
   protected: { route: '/protected', displayName: 'Protected' },
   login: { route: '/login', displayName: 'Sign in' },
   logout: { route: '/logout', displayName: 'Sign out' },
+  register: { route: '/register', displayName: 'Register' },
   clientVsServer: {
     route: '/examples/client-vs-server',
     displayName: 'Client vs Server',

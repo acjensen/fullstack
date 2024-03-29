@@ -35,7 +35,7 @@ export default function Navbar(props: { session: any | undefined }) {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <Image src={logo} className="h-8" alt="Logo" />
+            <Image src={logo} className="h-8" alt="Logo" width="20" />
             <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
               App Name
             </span>
@@ -55,16 +55,26 @@ export default function Navbar(props: { session: any | undefined }) {
                     className="size-8 rounded-full"
                     src="/example-profile-picture.jpeg"
                     alt="user photo"
+                    width="20"
+                    height="20"
                   />
                 </button>
               )
               : (
-                <Link
-                  href={`${pages.login.route}?callbackUrl=${pathname}`}
-                  className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white"
-                >
-                  Sign in
-                </Link>
+                <div className="flex">
+                  <Link
+                    href={`${pages.login.route}?callbackUrl=${pathname}`}
+                    className="mr-3 self-center whitespace-nowrap text-2xl font-semibold dark:text-white"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    href={`${pages.register.route}?callbackUrl=${pathname}`}
+                    className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white"
+                  >
+                    Sign up
+                  </Link>
+                </div>
               )}
             {isOpen && (
               <div
