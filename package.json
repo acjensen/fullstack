@@ -5,9 +5,10 @@
     "cdk": "cdk/cdk.js"
   },
   "scripts": {
-    "dev": "next dev -p 3005",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npm run next:dev",
+    "next:dev": "next dev -p 3005",
+    "next:build": "next build",
+    "next:start": "next start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "deploy": "cdk deploy --require-approval=never",
     "deploy:watch": "cdk watch --no-hotswap",

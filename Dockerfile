@@ -1,6 +1,7 @@
 FROM --platform=linux/arm64 node:20 AS build
 WORKDIR /app
 COPY package*.json ./
+COPY pnpm-lock.yaml ./
 # See https://github.com/npm/cli/issues/3208#issuecomment-1002990902
 RUN mkdir node_modules
 RUN npm install -g pnpm
