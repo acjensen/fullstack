@@ -35,4 +35,4 @@ jobs:
       - name: Copy secrets to env
         run: echo AUTH_SECRET=${{ secrets.AUTH_SECRET }} >> .env
       - name: Deploy to AWS
-        run: cdk deploy --require-approval=never
+        run: cdk deploy --require-approval=never --ci
