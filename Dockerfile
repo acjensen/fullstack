@@ -25,7 +25,7 @@ COPY --from=build /app/public ./public
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY --chown=nextjs:nodejs --from=build /app/.next  ./.next
-ENV NEXTAUTH_URL="https://www.acjensen-desktop.com/"
+ENV NEXTAUTH_URL="https://acjensen-desktop.com/"
 
 EXPOSE 80
 # TODO: use ENTRYPOINT instead of CMD so ctrl-c works for local dev
