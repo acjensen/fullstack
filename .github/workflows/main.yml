@@ -24,8 +24,8 @@ jobs:
           architecture: "x64"
       - name: Install AWS CDK
         run: |
-          npm install -g aws-cdk
-          npm install
+          npm install -g pnpm
+          pnpm install -g aws-cdk
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
