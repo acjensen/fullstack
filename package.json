@@ -1,6 +1,7 @@
 {
   "name": "fullstack",
   "version": "1.0.0",
+  "packageManager": "^pnpm@8.15.5",
   "bin": {
     "cdk": "cdk/cdk.js"
   },
