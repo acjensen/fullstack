@@ -1,6 +1,6 @@
+import { compare } from 'bcrypt-ts';
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { compare } from 'bcrypt-ts';
 import { getUser, mockDb } from '../server/db';
 import { authConfig } from './auth.config';
 
@@ -9,6 +9,11 @@ export const {
   auth,
   signIn,
   signOut,
+}: {
+  handlers: { GET: any, POST: any },
+  auth: any,
+  signIn: any,
+  signOut: any,
 } = NextAuth({
   ...authConfig,
   providers: [
