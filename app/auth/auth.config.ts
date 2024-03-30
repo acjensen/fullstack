@@ -1,5 +1,5 @@
 import { type NextAuthConfig } from 'next-auth';
-import { protectedPages, pages } from '../pages';
+import { pages, protectedPages } from '../pages';
 
 export const authConfig = {
   pages: {
@@ -25,4 +25,5 @@ export const authConfig = {
     },
   },
   trustHost: true,
+  basePath: undefined, // set via NEXTAUTH_URL instead
 } satisfies NextAuthConfig;
