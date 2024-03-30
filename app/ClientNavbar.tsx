@@ -7,7 +7,7 @@ import { useState } from 'react';
 import logo from '../static/logo.svg';
 import { navbarPages, pages, userPages } from './pages';
 
-export default function Navbar(props: { session: any | undefined }) {
+export default function Navbar(props: { session: any | undefined, appName: string }) {
   const { session } = props;
   const isLoggedIn = !!session;
 
@@ -37,7 +37,7 @@ export default function Navbar(props: { session: any | undefined }) {
           >
             <Image src={logo} className="h-8" alt="Logo" width="20" />
             <span className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-              App Name
+              {props.appName}
             </span>
           </a>
           <div className="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">

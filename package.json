@@ -15,7 +15,7 @@
     "tsc": "tsc",
     "tsc:watch": "tsc -w",
     "synth": "cdk synth",
-    "image:build": "docker build .",
+    "image:build": "docker build . --build-arg NEXTAUTH_URL=http://localhost/api/auth",
     "image:run": "docker run -p 80:80 -v $HOME/.aws:/root/.aws:ro -it $(docker build -q .)",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",
@@ -60,6 +60,7 @@
     "react": "^18.2.0",
     "react-code-blocks": "^0.1.6",
     "react-dom": "^18.2.0",
+    "sharp": "^0.33.3",
     "source-map-support": "^0.5.21"
   }
 }

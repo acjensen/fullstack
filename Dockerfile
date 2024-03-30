@@ -1,3 +1,6 @@
+#########
+# Build #
+#########
 FROM --platform=linux/arm64 node:20 AS build
 WORKDIR /app
 COPY package*.json ./
@@ -12,11 +15,11 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run next:build
 
-
-
+#########
+# Run #
+#########
 FROM --platform=linux/arm64 node:20
 WORKDIR /app
-
 # TODO: don't copy .git
 COPY --from=build /app/.git ./.git
 # .env has AUTH_SECRET for local builds
@@ -25,8 +28,8 @@ COPY --from=build /app/public ./public
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY --chown=nextjs:nodejs --from=build /app/.next  ./.next
-ENV NEXTAUTH_URL="https://acjensen-desktop.com/"
-
+ARG NEXTAUTH_URL_ARG
+ENV NEXTAUTH_URL=$NEXTAUTH_URL_ARG
 EXPOSE 80
 # TODO: use ENTRYPOINT instead of CMD so ctrl-c works for local dev
 CMD ["npm", "run", "next:start", "--", "-p", "80"]

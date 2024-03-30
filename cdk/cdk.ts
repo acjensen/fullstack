@@ -16,7 +16,7 @@ import root from '../root';
 import { appSettings } from './common';
 
 const {
-  account, appName, region, tableName,
+  account, appName, region, tableName, domainName,
 } = appSettings;
 
 const app = new cdk.App();
@@ -83,15 +83,18 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
           buildSecrets: {
             AUTH_SECRET: `env=${process.env.AUTH_SECRET!}`,
           },
+          buildArgs: {
+            NEXTAUTH_URL_ARG: `https://${domainName}/api/auth`,
+          },
         }),
       ),
       containerPort: 80,
       enableLogging: true,
     },
     protocol: ApplicationProtocol.HTTPS,
-    domainName: 'acjensen-desktop.com',
+    domainName,
     domainZone: HostedZone.fromLookup(stack, `${appName}-hosted-zone`, {
-      domainName: 'acjensen-desktop.com',
+      domainName,
     }),
     redirectHTTP: true,
     assignPublicIp: true, // Needed since we're not using NAT gateway
