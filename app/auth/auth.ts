@@ -1,7 +1,7 @@
 import { compare } from 'bcrypt-ts';
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { getUser, mockDb } from '../server/db';
+import { getUser, useMockDb } from '../server/db';
 import { authConfig } from './auth.config';
 
 export const {
@@ -23,7 +23,7 @@ export const {
       async authorize({ email, password }: any) {
         const user = await getUser(email);
         if (user.length === 0) return null;
-        const passwordsMatch = mockDb
+        const passwordsMatch = useMockDb
           ? password === user[0].password!
           : await compare(password, user[0].password);
         if (passwordsMatch) return user[0] as any;

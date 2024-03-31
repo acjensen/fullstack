@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { Form } from '../auth/form';
-import { SubmitButton } from '../auth/submit-button';
-import { pages } from '../pages';
-import { createUser, getUser } from '../server/db';
+import { pages } from '../../pages';
+import { createUser, getUser } from '../../server/db';
+import { Form } from '../signin/form';
+import { SubmitButton } from '../signin/submit-button';
 
 export default function Login() {
   async function register(formData: FormData) {
@@ -17,7 +17,7 @@ export default function Login() {
       // return 'User already exists'; // TODO: Handle errors with useFormStatus
     }
     await createUser(email, password);
-    redirect(pages.login.route);
+    redirect(pages.signin.route);
   }
 
   return (
@@ -39,7 +39,7 @@ export default function Login() {
           <p className="text-center text-sm text-gray-600">
             {'Already have an account? '}
             <Link
-              href={pages.login.route}
+              href={pages.signin.route}
               className="font-semibold text-gray-800"
             >
               Sign in

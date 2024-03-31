@@ -63,7 +63,7 @@ export default function Navbar(props: { session: any | undefined, appName: strin
               : (
                 <div className="flex">
                   <Link
-                    href={`${pages.login.route}?callbackUrl=${pathname}`}
+                    href={`${pages.signin.route}?callbackUrl=${pathname}`}
                     className="mr-3 self-center whitespace-nowrap text-2xl font-semibold dark:text-white"
                   >
                     Sign in

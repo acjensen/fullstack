@@ -15,7 +15,7 @@
     "tsc": "tsc",
     "tsc:watch": "tsc -w",
     "synth": "cdk synth",
-    "image:build": "docker build . --build-arg NEXTAUTH_URL=http://localhost/api/auth",
+    "image:build": "docker build . --build-arg NEXTAUTH_URL=http://localhost",
     "image:run": "docker run -p 80:80 -v $HOME/.aws:/root/.aws:ro -it $(docker build -q .)",
     "test:unit": "jest",
     "test:unit:watch": "jest --watch",

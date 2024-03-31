@@ -1,0 +1,1 @@
+Note: `/api/auth` is the default route for NextAuth. Don't move this route.

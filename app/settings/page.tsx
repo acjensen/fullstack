@@ -1,6 +1,6 @@
 // import { useState } from "react";
-import { get } from '../server/actions';
 import { auth } from '../auth/auth';
+import { get } from '../server/actions';
 import Picker, { defaultColor } from './Picker';
 
 export default async function Page() {

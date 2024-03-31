@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { signOut } from '../auth/auth';
+import { signOut } from '../auth';
 
 export async function GET() {
   await signOut();

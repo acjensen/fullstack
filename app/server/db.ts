@@ -1,10 +1,10 @@
 import { genSaltSync, hashSync } from 'bcrypt-ts';
 import { get, put } from './actions';
 
-export const mockDb = false;
+export const useMockDb = false;
 
 export const getUser = async (email: string) => {
-  if (mockDb) {
+  if (useMockDb) {
     return [
       {
         id: 'uniqueId',
@@ -27,7 +27,7 @@ export const getUser = async (email: string) => {
 };
 
 export const createUser = async (email: string, password: string) => {
-  if (mockDb) {
+  if (useMockDb) {
     return;
   }
 

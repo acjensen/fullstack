@@ -1,17 +1,17 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { auth, signIn } from '../auth/auth';
-import { Form } from '../auth/form';
-import { SubmitButton } from '../auth/submit-button';
-import { pages } from '../pages';
+import { pages } from '../../pages';
+import { auth, signIn } from '../auth';
+import { Form } from './form';
+import { SubmitButton } from './submit-button';
 
 export default async function Login(props: any) {
-  const callbackUrl: string | undefined = props.searchParams?.callbackUrl;
+  const callbackUrl: string = props.searchParams?.callbackUrl || '/';
 
   // If already logged in, skip the login page.
   const session = await auth();
   if (session) {
-    redirect(callbackUrl || '/');
+    redirect(callbackUrl);
   }
 
   return (
@@ -33,14 +33,13 @@ export default async function Login(props: any) {
             let redirectPath: string | undefined;
             try {
               await signIn('credentials', {
-                // redirectTo: "/dashboard",
                 email: formData.get('email') as string,
                 password: formData.get('password') as string,
                 redirect: false, // We're using server-side redirection.
               });
-              redirectPath = callbackUrl || '/';
+              redirectPath = callbackUrl;
             } catch {
-              redirectPath = `${pages.login.route}?error=true`;
+              redirectPath = `${pages.signin.route}?error=true`;
             } finally {
               if (redirectPath) {
                 redirect(redirectPath);
@@ -51,7 +50,7 @@ export default async function Login(props: any) {
           <SubmitButton>Sign in</SubmitButton>
           <p className="text-center text-sm text-gray-600">
             {"Don't have an account? "}
-            <Link href="/register" className="font-semibold text-gray-800">
+            <Link href={pages.register.route} className="font-semibold text-gray-800">
               Sign up
             </Link>
             {' for free.'}

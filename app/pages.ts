@@ -7,9 +7,9 @@ export const pages = {
   home: { route: '/', displayName: 'Home' },
   dashboard: { route: '/dashboard', displayName: 'Dashboard' },
   protected: { route: '/protected', displayName: 'Protected' },
-  login: { route: '/login', displayName: 'Sign in' },
-  logout: { route: '/logout', displayName: 'Sign out' },
-  register: { route: '/register', displayName: 'Register' },
+  signin: { route: '/auth/signin', displayName: 'Sign in' },
+  signout: { route: '/auth/signout', displayName: 'Sign out' },
+  register: { route: '/auth/register', displayName: 'Register' },
   clientVsServer: {
     route: '/examples/client-vs-server',
     displayName: 'Client vs Server',
@@ -29,7 +29,7 @@ export const protectedPages: Page[] = [
 export const userPages: Page[] = [
   pages.dashboard,
   pages.settings,
-  pages.logout,
+  pages.signout,
 ];
 
 export const navbarPages: Page[] = [

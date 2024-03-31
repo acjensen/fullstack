@@ -84,7 +84,7 @@ const service = new ecs_patterns.ApplicationLoadBalancedFargateService(
             AUTH_SECRET: `env=${process.env.AUTH_SECRET!}`,
           },
           buildArgs: {
-            NEXTAUTH_URL_ARG: `https://${domainName}/api/auth`,
+            NEXTAUTH_URL_ARG: `https://${domainName}`,
           },
         }),
       ),

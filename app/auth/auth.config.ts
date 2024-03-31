@@ -3,7 +3,8 @@ import { pages, protectedPages } from '../pages';
 
 export const authConfig = {
   pages: {
-    signIn: pages.login.route,
+    signIn: pages.signin.route,
+    signOut: pages.signout.route,
   },
   providers: [
     // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
@@ -13,14 +14,9 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isProtected = protectedPages.some((page) => nextUrl.pathname.startsWith(page.route));
-
       if (isProtected) {
         return isLoggedIn;
-      } if (isLoggedIn) {
-        Response.redirect(nextUrl);
       }
-
-      // not logged in and not protected
       return true;
     },
   },
