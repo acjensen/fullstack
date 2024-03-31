@@ -21,7 +21,7 @@ jobs:
         with:
           version: 8
       - name: "Set up QEMU"
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: "arm64"
       - name: Set up Node
@@ -35,7 +35,7 @@ jobs:
           pnpm install -g aws-cdk
           pnpm install
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@master
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
