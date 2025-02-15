@@ -5,6 +5,8 @@ export interface AppSettingsProps {
   account: string
   region: string
   domainName: string
+  copyrightYear: number
+  copyrightOwner: string
 }
 
 export interface AppSettings extends AppSettingsProps {
@@ -25,6 +27,8 @@ export const appSettings = getAppSettings({
   account: '525122308447',
   region: 'us-east-1',
   domainName: 'acjensen-desktop.com',
+  copyrightYear: 2024,
+  copyrightOwner: 'Andrew Jensen',
 });
 
 export const simpleLayout = false;

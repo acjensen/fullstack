@@ -11,7 +11,7 @@ const Picker = (props: { session: any; initialColor: string }) => {
   const [value, setValue] = useState(initialColor);
   return (
     <div>
-      <h1>What is your favorite color???</h1>
+      <h1>Select a color</h1>
 
       <form
         action={async () => {

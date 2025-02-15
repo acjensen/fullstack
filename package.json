@@ -52,13 +52,17 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.538.0",
     "@aws-sdk/util-dynamodb": "^3.540.0",
+    "@types/cytoscape": "^3.21.0",
+    "@types/react-cytoscapejs": "^1.2.5",
     "aws-cdk-lib": "2.133.0",
     "bcrypt-ts": "^5.0.2",
     "constructs": "^10.0.0",
+    "cytoscape": "^3.29.2",
     "next": "^14.1.4",
     "next-auth": "^5.0.0-beta.15",
     "react": "^18.2.0",
     "react-code-blocks": "^0.1.6",
+    "react-cytoscapejs": "^2.0.0",
     "react-dom": "^18.2.0",
     "source-map-support": "^0.5.21"
   }

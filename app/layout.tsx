@@ -1,7 +1,7 @@
-import './styles/global.css';
+import { simpleLayout } from '../cdk/common';
 import Footer from './Footer';
 import Navbar from './Navbar';
-import { simpleLayout } from '../cdk/common';
+import './styles/global.css';
 
 export default function RootLayout({
   children,

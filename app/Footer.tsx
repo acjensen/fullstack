@@ -1,12 +1,14 @@
 import Link from 'next/link';
+import { appSettings } from '../cdk/common';
 import { footerPages } from './pages';
 
 export default function Footer() {
+  const currentYear = (new Date()).getFullYear();
   return (
     <div className="flex shrink-0 bg-white shadow dark:bg-gray-800">
       <div className="mx-auto w-full max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
         <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-          Copyright © 2024 Andrew Jensen
+          {`Copyright © ${appSettings.copyrightYear}${currentYear !== appSettings.copyrightYear ? `-${currentYear}` : ''} ${appSettings.copyrightOwner}`}
         </span>
         <ul className="mt-3 flex flex-wrap items-center text-sm font-medium text-gray-500 sm:mt-0 dark:text-gray-400">
           {footerPages.map((page) => (

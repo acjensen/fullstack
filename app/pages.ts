@@ -7,6 +7,7 @@ export const pages = {
   home: { route: '/', displayName: 'Home' },
   dashboard: { route: '/dashboard', displayName: 'Dashboard' },
   protected: { route: '/protected', displayName: 'Protected' },
+  admin: { route: '/admin', displayName: 'Admin' },
   signin: { route: '/auth/signin', displayName: 'Sign in' },
   signout: { route: '/auth/signout', displayName: 'Sign out' },
   register: { route: '/auth/register', displayName: 'Register' },
